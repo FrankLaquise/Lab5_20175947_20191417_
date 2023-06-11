@@ -36,5 +36,11 @@ public class InfoDoctor extends AppCompatActivity {
         binding.tvUbicacion.setText(d.getCountry()+" - "+d.getState()+" - "+d.getCity());
         binding.tvUsername.setText(d.getUsername());
         Picasso.get().load(d.getFoto()).into(binding.imagen);
+        binding.btnAgendar.setOnClickListener(v->{
+            Intent in2= new Intent(InfoDoctor.this,CitaAgendada.class);
+            in2.putExtra("doctor",d);
+            startActivity(in2);
+            finish();
+        });
     }
 }
