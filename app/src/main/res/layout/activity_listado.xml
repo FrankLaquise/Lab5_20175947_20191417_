@@ -23,11 +23,12 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/editTextBuscar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edittext_buscador_border"
         android:hint="Buscar un doctor"
@@ -64,5 +65,28 @@
         app:layout_constraintStart_toEndOf="@+id/btnPerfilmage"
         app:layout_constraintTop_toTopOf="@+id/btnPerfilmage" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/fab_content_desc"
+        app:backgroundTint="#FFFFFF"
+        app:borderWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_plus_24" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rV_doctor"
+        android:layout_width="350dp"
+        android:layout_height="610dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBuscar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
