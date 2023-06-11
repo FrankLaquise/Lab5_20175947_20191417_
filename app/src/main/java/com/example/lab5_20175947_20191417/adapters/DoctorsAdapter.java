@@ -5,23 +5,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lab5_20175947_20191417.R;
-import com.example.lab5_20175947_20191417.entity.Doctor;
+import com.example.lab5_20175947_20191417.entity.firebase.DoctorDTO;
+import com.example.lab5_20175947_20191417.entity.randoentities.Doctor;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorViewHolder>{
-    private List<Doctor> listaDoctors;
+    private List<DoctorDTO> listaDoctors;
     private Context context;
-    public DoctorsAdapter(List<Doctor> dl,Context c){
+    public DoctorsAdapter(List<DoctorDTO> dl,Context c){
         this.listaDoctors=dl;
         this.context=c;
     }
+
+    public List<DoctorDTO> getListaDoctors() {
+        return listaDoctors;
+    }
+
+    public void setListaDoctors(List<DoctorDTO> listaDoctors) {
+        this.listaDoctors = listaDoctors;
+    }
+
     @NonNull
     @Override
     public DoctorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,11 +42,14 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorVi
 
     @Override
     public void onBindViewHolder(@NonNull DoctorViewHolder holder, int position) {
-        Doctor d= listaDoctors.get(position);
+        DoctorDTO d= listaDoctors.get(position);
         holder.doctor=d;
         ImageView imgV=holder.itemView.findViewById(R.id.img);
-        String url="https://img.freepik.com/fotos-premium/doctor-sonriente-joven-negro-encuentra-fondo-blanco-foto-alta-calidad_209729-1428.jpg?w=360";
-        Picasso.get().load(url).into(imgV);
+        Picasso.get().load(d.getFoto()).into(imgV);
+        TextView tVName= holder.itemView.findViewById(R.id.tvName);
+        tVName.setText("Dr. "+d.getLast());
+        TextView tVLocation= holder.itemView.findViewById(R.id.tvLocation);
+        tVLocation.setText(d.getCountry()+" - "+d.getState());
     }
 
     @Override
@@ -44,7 +58,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorVi
     }
 
     public class DoctorViewHolder extends RecyclerView.ViewHolder{
-        Doctor doctor;
+        DoctorDTO doctor;
         public DoctorViewHolder(@NonNull View v){
             super(v);
         }
