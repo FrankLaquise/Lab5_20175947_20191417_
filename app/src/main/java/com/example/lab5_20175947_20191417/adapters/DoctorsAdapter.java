@@ -1,6 +1,8 @@
 package com.example.lab5_20175947_20191417.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lab5_20175947_20191417.R;
 import com.example.lab5_20175947_20191417.entity.firebase.DoctorDTO;
-import com.example.lab5_20175947_20191417.entity.randoentities.Doctor;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorViewHolder>{
     private List<DoctorDTO> listaDoctors;
     private Context context;
+    private List<DoctorDTO> listaDoctorsFiltered;
     public DoctorsAdapter(List<DoctorDTO> dl,Context c){
         this.listaDoctors=dl;
         this.context=c;
@@ -31,6 +34,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorVi
 
     public void setListaDoctors(List<DoctorDTO> listaDoctors) {
         this.listaDoctors = listaDoctors;
+        this.listaDoctorsFiltered= new ArrayList<>(listaDoctors);
     }
 
     @NonNull
@@ -42,21 +46,34 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorVi
 
     @Override
     public void onBindViewHolder(@NonNull DoctorViewHolder holder, int position) {
-        DoctorDTO d= listaDoctors.get(position);
+        DoctorDTO d= listaDoctorsFiltered.get(position);
         holder.doctor=d;
         ImageView imgV=holder.itemView.findViewById(R.id.img);
         Picasso.get().load(d.getFoto()).into(imgV);
         TextView tVName= holder.itemView.findViewById(R.id.tvName);
-        tVName.setText("Dr. "+d.getLast());
+        tVName.setText("Dr. "+d.getFirst());
         TextView tVLocation= holder.itemView.findViewById(R.id.tvLocation);
-        tVLocation.setText(d.getCountry()+" - "+d.getState());
+        tVLocation.setText(d.getCountry()+" - "+d.getState()+" - "+d.getCity());
     }
 
     @Override
     public int getItemCount() {
-        return listaDoctors.size();
+        return listaDoctorsFiltered.size();
     }
 
+    public void filterDoctorsByName(String searchQuery){
+        listaDoctorsFiltered= new ArrayList<>();
+        if(TextUtils.isEmpty(searchQuery)){
+            listaDoctorsFiltered.addAll(listaDoctors);
+        }else{
+            for(DoctorDTO d: listaDoctors){
+                if(d.getFirst().toLowerCase().contains(searchQuery.toLowerCase())){
+                    listaDoctorsFiltered.add(d);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
     public class DoctorViewHolder extends RecyclerView.ViewHolder{
         DoctorDTO doctor;
         public DoctorViewHolder(@NonNull View v){
