@@ -20,6 +20,9 @@
             android:name=".InfoDoctor"
             android:exported="false" />
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".Listado"
             android:exported="false"
             android:screenOrientation="portrait"
