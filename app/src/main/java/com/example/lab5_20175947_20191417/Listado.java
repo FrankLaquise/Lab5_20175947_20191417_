@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class Listado extends AppCompatActivity {
 
         binding.btnPerfilmage.setImageResource(R.mipmap.aitel);
         binding.btnAddDoctor.setOnClickListener(v->{
+            binding.progressBar.setVisibility(View.VISIBLE);
+            binding.overlayView.setVisibility(View.VISIBLE);
             v.setEnabled(false);
             RandoMuserServices service= new Retrofit.Builder()
                     .baseUrl("https://randomuser.me")
@@ -61,7 +64,6 @@ public class Listado extends AppCompatActivity {
                     if(response.isSuccessful()){
                         RandoMuser r= response.body();
                         Doctor d=r.getResults().get(0);
-                        Log.d(TAG,"username: "+d.getLogin().getUsername());
                         DoctorDTO doctor= new DoctorDTO(d.getName().getTitle(),d.getName().getFirst(),d.getName().getLast(),
                                 d.getLocation().getCountry(),d.getLocation().getState(),d.getLocation().getCity(),
                                 d.getDob().getAge(),d.getEmail(),d.getCell(),d.getPicture().getLarge(),d.getNat(),d.getGender()
@@ -69,8 +71,12 @@ public class Listado extends AppCompatActivity {
                         databaseReference.push().setValue(doctor)
                                 .addOnSuccessListener(aVoid->{
                                     Toast.makeText(getApplicationContext(), "Se almacenó exitosamente!", Toast.LENGTH_SHORT).show();
+                                    binding.progressBar.setVisibility(View.GONE);
+                                    binding.overlayView.setVisibility(View.GONE);
                                 })
                                 .addOnFailureListener(e->{
+                                    binding.progressBar.setVisibility(View.GONE);
+                                    binding.overlayView.setVisibility(View.GONE);
                                     Toast.makeText(getApplicationContext(), "Error al guardar en firebase!", Toast.LENGTH_SHORT).show();
                                     Log.d(TAG,e.getMessage());
                                 });
@@ -80,15 +86,23 @@ public class Listado extends AppCompatActivity {
                 }
                 @Override
                 public void onFailure(Call<RandoMuser> call, Throwable t) {
+                    binding.overlayView.setVisibility(View.GONE);
+                    binding.progressBar.setVisibility(View.GONE);
                     v.setEnabled(true);
                     Log.d(TAG,"OnFailure, salio mal!!");
                     t.printStackTrace();
                 }
             });
         });
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.progressBar.setProgress(50);
+        binding.progressBar.setIndeterminate(true);
+        binding.overlayView.setVisibility(View.VISIBLE);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                binding.progressBar.setVisibility(View.GONE);
+                binding.overlayView.setVisibility(View.GONE);
                 List<DoctorDTO> doctores= new ArrayList<>();
                 for(DataSnapshot data: snapshot.getChildren()){
                     DoctorDTO doctorDTO= data.getValue(DoctorDTO.class);
@@ -100,12 +114,12 @@ public class Listado extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                binding.overlayView.setVisibility(View.GONE);
+                binding.progressBar.setVisibility(View.GONE);
                 Log.d(TAG,"onCancelled Error Listener");
             }
         });
-
         databaseReference.addValueEventListener(doctorsListener);
-
         binding.inputFilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
