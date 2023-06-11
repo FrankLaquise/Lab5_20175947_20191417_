@@ -1,6 +1,7 @@
 package com.example.lab5_20175947_20191417.entity.randoentities;
 
 public class Doctor {
+    private String gender;
     private Name name;
     private LocationR location;
     private String email;
@@ -8,6 +9,23 @@ public class Doctor {
     private String cell;
     private Picture picture;
     private String nat;
+    private Login login;
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public Name getName() {
         return name;

@@ -61,9 +61,11 @@ public class Listado extends AppCompatActivity {
                     if(response.isSuccessful()){
                         RandoMuser r= response.body();
                         Doctor d=r.getResults().get(0);
+                        Log.d(TAG,"username: "+d.getLogin().getUsername());
                         DoctorDTO doctor= new DoctorDTO(d.getName().getTitle(),d.getName().getFirst(),d.getName().getLast(),
                                 d.getLocation().getCountry(),d.getLocation().getState(),d.getLocation().getCity(),
-                                d.getDob().getAge(),d.getEmail(),d.getCell(),d.getPicture().getLarge(),d.getNat());
+                                d.getDob().getAge(),d.getEmail(),d.getCell(),d.getPicture().getLarge(),d.getNat(),d.getGender()
+                        ,d.getLogin().getUsername());
                         databaseReference.push().setValue(doctor)
                                 .addOnSuccessListener(aVoid->{
                                     Toast.makeText(getApplicationContext(), "Se almacenó exitosamente!", Toast.LENGTH_SHORT).show();
@@ -114,7 +116,6 @@ public class Listado extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                Log.d(TAG,"ingresamosss Texto: "+s.toString().trim());
                 String searchQuery= s.toString().trim();
                 adapter.filterDoctorsByName(searchQuery);
             }

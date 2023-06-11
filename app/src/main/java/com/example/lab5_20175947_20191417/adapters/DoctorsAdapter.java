@@ -1,17 +1,20 @@
 package com.example.lab5_20175947_20191417.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lab5_20175947_20191417.InfoDoctor;
 import com.example.lab5_20175947_20191417.R;
 import com.example.lab5_20175947_20191417.entity.firebase.DoctorDTO;
 import com.squareup.picasso.Picasso;
@@ -54,6 +57,13 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorVi
         tVName.setText("Dr. "+d.getFirst());
         TextView tVLocation= holder.itemView.findViewById(R.id.tvLocation);
         tVLocation.setText(d.getCountry()+" - "+d.getState()+" - "+d.getCity());
+
+        Button btnInfo= holder.itemView.findViewById(R.id.btnInfo);
+        btnInfo.setOnClickListener(v->{
+            Intent in= new Intent(context, InfoDoctor.class);
+            in.putExtra("doctor", d);
+            context.startActivity(in);
+        });
     }
 
     @Override

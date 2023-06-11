@@ -1,6 +1,10 @@
 package com.example.lab5_20175947_20191417.entity.firebase;
 
-public class DoctorDTO {
+import java.io.Serializable;
+
+public class DoctorDTO implements Serializable {
+    private String gender;
+    private String username;
     private String title;
     private String first;
     private String last;
@@ -14,7 +18,8 @@ public class DoctorDTO {
     private String nat;
     public DoctorDTO() {
     }
-    public DoctorDTO(String title, String first, String last, String country, String state, String city, String age, String email, String cell, String foto, String nat) {
+
+    public DoctorDTO(String title, String first, String last, String country, String state, String city, String age, String email, String cell, String foto, String nat, String gender,String username) {
         this.title = title;
         this.first = first;
         this.last = last;
@@ -26,8 +31,23 @@ public class DoctorDTO {
         this.cell = cell;
         this.foto = foto;
         this.nat = nat;
+        this.gender=gender;
+        this.username=username;
+    }
+    public String getUsername() {
+        return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
     public String getTitle() {
         return title;
     }
