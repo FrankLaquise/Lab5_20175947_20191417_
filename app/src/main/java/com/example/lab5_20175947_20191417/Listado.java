@@ -19,6 +19,7 @@ import com.example.lab5_20175947_20191417.entity.firebase.DoctorDTO;
 import com.example.lab5_20175947_20191417.entity.randoentities.Doctor;
 import com.example.lab5_20175947_20191417.retrofit.RandoMuser;
 import com.example.lab5_20175947_20191417.retrofit.services.RandoMuserServices;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +41,8 @@ public class Listado extends AppCompatActivity {
     private final String TAG="msg-info";
     FirebaseDatabase firebaseDatabase;
     DoctorsAdapter adapter;
+    private FirebaseUser mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +137,8 @@ public class Listado extends AppCompatActivity {
                 adapter.filterDoctorsByName(searchQuery);
             }
         });
+
+        // FirebaseUser currentUser = mAuth.get;
     }
     ValueEventListener doctorsListener= new ValueEventListener() {
         @Override

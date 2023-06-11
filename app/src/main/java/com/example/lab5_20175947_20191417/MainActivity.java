@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }else{
                 Log.d(TAG, "Error, login no exitoso:" + task.getException().toString());
-                Toast.makeText(this, "Ocurrio un error. "+task.getException().toString(),
+                Toast.makeText(this, "Ocurrio un error. "+task.getException().getMessage().toString(),
                         Toast.LENGTH_LONG).show();
             }
         }
