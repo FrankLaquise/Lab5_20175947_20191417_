@@ -9,7 +9,7 @@
     android:backgroundTint="@color/fondo">
 
     <EditText
-        android:id="@+id/inputTelefono"
+        android:id="@+id/inputTelefonoR"
         android:layout_width="match_parent"
         android:layout_height="39dp"
 
@@ -20,7 +20,7 @@
         android:backgroundTint="#FFFFFF"
         android:fontFamily="sans-serif-medium"
         android:hint="Ingrese su telefono"
-        android:inputType="number"
+
         android:letterSpacing="0.01"
         android:lineSpacingExtra="8sp"
         android:textColor="#000000"
@@ -43,7 +43,7 @@
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmail2" />
+        app:layout_constraintTop_toBottomOf="@+id/inputEmailR" />
 
     <TextView
         android:id="@+id/textView17"
@@ -79,7 +79,7 @@
         app:lineHeight="33.8sp" />
 
     <EditText
-        android:id="@+id/inputEmail2"
+        android:id="@+id/inputEmailR"
         android:layout_width="match_parent"
         android:layout_height="39dp"
 
@@ -90,7 +90,7 @@
         android:backgroundTint="#FFFFFF"
         android:fontFamily="sans-serif-medium"
         android:hint="Ingrese su correo"
-        android:inputType="textEmailAddress"
+
         android:letterSpacing="0.01"
         android:lineSpacingExtra="8sp"
         android:textColor="#000000"
@@ -102,7 +102,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/inputPassword2"
+        android:id="@+id/inputPasswordR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -136,7 +136,7 @@
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword2" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPasswordR" />
 
     <TextView
         android:id="@+id/textView4"
@@ -149,11 +149,11 @@
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputName" />
+        app:layout_constraintTop_toBottomOf="@+id/inputNameR" />
 
 
     <Button
-        android:id="@+id/btnregister"
+        android:id="@+id/btnregisterR"
         android:layout_width="350dp"
         android:layout_height="45dp"
         android:layout_marginTop="20dp"
@@ -161,11 +161,11 @@
         android:text="Registrarse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputTelefono" />
+        app:layout_constraintTop_toBottomOf="@+id/inputTelefonoR" />
 
 
     <EditText
-        android:id="@+id/inputName"
+        android:id="@+id/inputNameR"
         android:layout_width="match_parent"
         android:layout_height="39dp"
 
@@ -176,7 +176,7 @@
         android:backgroundTint="#FFFFFF"
         android:fontFamily="sans-serif-medium"
         android:hint="Ingrese su nombre completo"
-        android:inputType="textEmailAddress"
+
         android:letterSpacing="0.01"
         android:lineSpacingExtra="8sp"
         android:textColor="#000000"
@@ -205,7 +205,7 @@
         app:drawableLeftCompat="@drawable/ic_google"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnregister"
+        app:layout_constraintTop_toBottomOf="@+id/btnregisterR"
         app:layout_goneMarginStart="30dp" />
 
     <Button

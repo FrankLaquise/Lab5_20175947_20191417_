@@ -29,10 +29,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.List;
+import java.util.Objects;
 
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -73,9 +79,14 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verificarCredenciales();
+                if (!validateUsername()|!validatePass()){
+
+                }else {
+                    checkUser();
+                }
             }
         });
+
         btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,6 +217,66 @@ public class MainActivity extends AppCompatActivity {
             startActivity(dashboardActivity);
         }
         super.onStart();
+    }
+
+
+    ///realtime
+    public Boolean validateUsername(){
+        String val = txtInputEmail.getText().toString();
+        if(val.isEmpty()){
+            txtInputEmail.setError("Usuario vacio");
+            return false   ;
+
+        }else{
+            txtInputEmail.setError(null);
+            return true;
+        }
+    }
+    public Boolean validatePass(){
+        String val = txtInputPassword.getText().toString();
+        if(val.isEmpty()){
+            txtInputPassword.setError("Contraseña vacia");
+            return false   ;
+
+        }else{
+            txtInputPassword.setError(null);
+            return true;
+        }
+    }
+
+
+    public void checkUser(){
+        String userCorreo = txtInputEmail.getText().toString().trim();
+        String userPass = txtInputPassword.getText().toString().trim();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUserDatabase= reference.orderByChild("correo").equalTo(userCorreo);
+
+        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    txtInputEmail.setError(null);
+                    String passwordFromDB = snapshot.child(userCorreo).child("password").getValue(String.class);
+                    if (Objects.equals(passwordFromDB,userPass)){
+                        txtInputEmail.setError(null);
+                        Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }else {
+                        txtInputPassword.setError("Credenciales Invalidas");
+                        txtInputPassword.requestFocus();
+                    }
+                }else {
+                    txtInputEmail.setError("usuario no existe");
+                    txtInputEmail.requestFocus();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }
