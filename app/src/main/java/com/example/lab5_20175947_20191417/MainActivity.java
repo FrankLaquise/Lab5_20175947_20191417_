@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_main);
+
         txtInputEmail = findViewById(R.id.inputEmail);
         txtInputPassword = findViewById(R.id.inputPassword);
         btnLogin = findViewById(R.id.btnlogin);
@@ -245,36 +248,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void checkUser(){
+    public void checkUser() {
         String userCorreo = txtInputEmail.getText().toString().trim();
         String userPass = txtInputPassword.getText().toString().trim();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase= reference.orderByChild("correo").equalTo(userCorreo);
+        Query checkUserDatabase = reference.orderByChild("correo").equalTo(userCorreo);
 
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     txtInputEmail.setError(null);
-                    String passwordFromDB = snapshot.child(userCorreo).child("password").getValue(String.class);
-                    if (Objects.equals(passwordFromDB,userPass)){
-                        txtInputEmail.setError(null);
-                        Intent intent = new Intent(MainActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }else {
-                        txtInputPassword.setError("Credenciales Invalidas");
-                        txtInputPassword.requestFocus();
+                    Log.d(TAG, ""+snapshot.getChildren());
+                    HelperClass user=null;
+                    for(DataSnapshot data:snapshot.getChildren()){
+                         user= data.getValue(HelperClass.class);
                     }
-                }else {
-                    txtInputEmail.setError("usuario no existe");
+                    if (user!=null) {
+                        txtInputEmail.setError(null);
+                        Intent intent = new Intent(MainActivity.this, Listado.class);
+                        intent.putExtra("nombre",user.getNombre());
+                        startActivity(intent);
+                        finish(); // Terminar la ejecución del método después de iniciar sesión exitosamente
+                    }
+                    txtInputPassword.setError("Credenciales Inválidas");
+                    txtInputPassword.requestFocus();
+                } else {
+                    txtInputEmail.setError("Usuario no existe");
                     txtInputEmail.requestFocus();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Manejar el error de cancelación de la consulta si es necesario
             }
         });
     }

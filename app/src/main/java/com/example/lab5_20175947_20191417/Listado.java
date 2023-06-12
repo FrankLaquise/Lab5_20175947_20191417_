@@ -145,15 +145,40 @@ public class Listado extends AppCompatActivity {
 //////////
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser=mAuth.getCurrentUser();
-        binding.userNombre.setText(currentUser.getDisplayName());
+
+        Intent in=getIntent();
+        String noombre_realtime = in.getStringExtra("nombre");
+        if (mAuth.getCurrentUser()!= null){
+            binding.userNombre.setText(currentUser.getDisplayName());//google
+
+        }else {
+
+            binding.userNombre.setText(noombre_realtime);//realtime
+        }
+
+
+        //fin google
+
+        //inicio realtime
+        //Intent intent =getIntent();
+        //String nameUser = intent.getStringExtra("nombre");
+        //binding.userNombre.setText(nameUser);
+        //inicio google o realtime
+
+
 
         binding.btnPerfilmage.setImageResource(R.mipmap.aitel);
 
         binding.btnPerfilmage.setOnClickListener(view -> {
             // Create an Intent to start the new activity
-            Intent intent = new Intent(Listado.this, PerfilActivity.class);
-            startActivity(intent);
+            Intent intent2 = new Intent(Listado.this, PerfilActivity.class);
+            intent2.putExtra("nombre",noombre_realtime);
+            startActivity(intent2);
         });
+
+
+
+
     }
     ValueEventListener doctorsListener= new ValueEventListener() {
         @Override

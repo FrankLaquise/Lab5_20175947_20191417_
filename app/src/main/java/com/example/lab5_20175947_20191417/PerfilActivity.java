@@ -73,7 +73,20 @@ public class PerfilActivity extends AppCompatActivity {
         txtnombre = findViewById(R.id.textView);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        txtnombre.setText(currentUser.getDisplayName());
+
+        Intent in=getIntent();
+        String noombre_realtime = in.getStringExtra("nombre");
+        if (mAuth.getCurrentUser()!= null){
+            txtnombre.setText(currentUser.getDisplayName());//google
+
+        }else {
+
+            txtnombre.setText(noombre_realtime);//realtime
+        }
+
+
+
+        //txtnombre.setText(currentUser.getDisplayName());
 
     }
 }
