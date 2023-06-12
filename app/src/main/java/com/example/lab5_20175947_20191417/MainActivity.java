@@ -30,6 +30,11 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.List;
 
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+
 public class MainActivity extends AppCompatActivity {
 
 
