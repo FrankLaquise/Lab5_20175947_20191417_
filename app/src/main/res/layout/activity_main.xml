@@ -141,47 +141,47 @@
         android:id="@+id/btnGoogle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/btn_bg"
         android:drawablePadding="10dp"
         android:paddingLeft="20dp"
-        android:text="Google"
+        android:text="                   Sign in with Google"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="#000000"
         app:drawableLeftCompat="@drawable/ic_google"
-        app:layout_constraintEnd_toStartOf="@+id/btnFacebook"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
+        app:layout_constraintTop_toBottomOf="@+id/btnlogin"
+        app:layout_goneMarginStart="30dp" />
 
     <Button
         android:id="@+id/btnFacebook"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/btn_bg"
+        android:backgroundTint="#FFFFFF"
         android:drawablePadding="10dp"
         android:paddingLeft="20dp"
-        android:text="Facebook"
+        android:text="                  Sign in with Facebook"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="#000000"
         app:drawableStartCompat="@drawable/ic_facebook"
-        app:layout_constraintBottom_toBottomOf="@+id/btnGoogle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnGoogle"
-        app:layout_constraintTop_toTopOf="@+id/btnGoogle" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGoogle" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="160dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:textAlignment="center"
@@ -203,7 +203,8 @@
             android:layout_marginStart="10dp"
             android:text="Registrese"
             android:textColor="@color/primary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:clickable="true"/>
 
     </LinearLayout>
 

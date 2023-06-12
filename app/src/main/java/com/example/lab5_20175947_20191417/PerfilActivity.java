@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class PerfilActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView txtnombre;
-    Button btnCerrarSesion,btnPerfilmage;
+    Button btnCerrarSesion;
 
 
 
@@ -65,9 +65,8 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
-        btnPerfilmage=findViewById(R.id.btnPerfilmage2);
 
-        binding.btnPerfilmage.setImageResource(R.mipmap.aitel);
+
 
 
         //nombre perfil

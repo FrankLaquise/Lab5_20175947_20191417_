@@ -77,6 +77,21 @@ public class MainActivity extends AppCompatActivity {
                 signIn();
             }
         });
+        TextView textView =findViewById(R.id.txtNotieneCuenta);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
 
 
 
