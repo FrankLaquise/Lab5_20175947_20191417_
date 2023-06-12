@@ -62,7 +62,7 @@
 
             <TextView
                 android:textSize="20sp"
-                android:id="@+id/textView"
+                android:id="@+id/userNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

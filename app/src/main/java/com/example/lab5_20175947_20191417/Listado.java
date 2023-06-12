@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lab5_20175947_20191417.adapters.DoctorsAdapter;
@@ -19,6 +21,7 @@ import com.example.lab5_20175947_20191417.entity.firebase.DoctorDTO;
 import com.example.lab5_20175947_20191417.entity.randoentities.Doctor;
 import com.example.lab5_20175947_20191417.retrofit.RandoMuser;
 import com.example.lab5_20175947_20191417.retrofit.services.RandoMuserServices;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +44,9 @@ public class Listado extends AppCompatActivity {
     private final String TAG="msg-info";
     FirebaseDatabase firebaseDatabase;
     DoctorsAdapter adapter;
-    private FirebaseUser mAuth;
+    private FirebaseAuth mAuth;
+    private TextView userNombre;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +142,18 @@ public class Listado extends AppCompatActivity {
                 adapter.filterDoctorsByName(searchQuery);
             }
         });
+//////////
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser=mAuth.getCurrentUser();
+        binding.userNombre.setText(currentUser.getDisplayName());
 
-        // FirebaseUser currentUser = mAuth.get;
+        binding.btnPerfilmage.setImageResource(R.mipmap.aitel);
+
+        binding.btnPerfilmage.setOnClickListener(view -> {
+            // Create an Intent to start the new activity
+            Intent intent = new Intent(Listado.this, PerfilActivity.class);
+            startActivity(intent);
+        });
     }
     ValueEventListener doctorsListener= new ValueEventListener() {
         @Override
