@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish(); // Terminar la ejecución del método después de iniciar sesión exitosamente
                     }
-                    txtInputPassword.setError("Credenciales Inválidas");
+
                     txtInputPassword.requestFocus();
                 } else {
                     txtInputEmail.setError("Usuario no existe");
